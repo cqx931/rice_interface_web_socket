@@ -1,0 +1,23 @@
+#stream img{
+  width: 900px;
+  height: 900px;
+}
+#stream {
+  position:absolute;
+  top:0;
+  left:0;
+}
+#overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: 1;
+}
+svg{
+
+}
+.wrapper {
+  position:relative;
+  width: 900px;
+  height: 900px;
+}
