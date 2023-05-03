@@ -15,17 +15,23 @@ body {
   left: 50%;
   transform: translateX(-50%);
   position:relative;
-  width: 900px;
-  height: 900px;
 }
 .wrapper div{
   position:absolute;
   top:0;
   left:0;
+  width:100%;
 }
-#stream img{
-  width: 900px;
-  height: 900px;
+#stream {
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    overflow: hidden;
+}
+#stream img {
+    flex-shrink:0;
+    min-width:100%;
+    min-height:100%;
 }
 #overlay {
   z-index: 1;

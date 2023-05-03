@@ -1,9 +1,9 @@
 const settings = {
   //page
-  stream_width: 900,
+  stream_width: 1440,
   python_width: 3040,
-  display_width: 1920,
-  display_height: 1080,
+  display_width: 1440,
+  display_height: 2560,
   animation:true,
   between_delay:1000,
   fadeout_duration:4000,
@@ -12,7 +12,7 @@ const settings = {
   sequence: true,
   message_display_time: 30 * 1000,
    // show everything at once or in sequence
-  fastMode: true // testing
+  fastMode: false // testing
   // TODO: specify different colors
 }
 
@@ -34,6 +34,10 @@ const lineGenerator = d3.line();
 let typeWriter;
 
 /****** FUNCTIONS ********/
+const resize = function(){
+  $(".wrapper").width = $(".wrapper").height = settings.display_width;
+  $("#stream").width = $("#stream").height = settings.display_width;
+}
 
 const initSvgCanvas = function(w, h) {
   svg = d3.select("#overlay").append("svg")
@@ -251,6 +255,7 @@ $(document).ready(function() {
       cursor: "",
       delay: settings.typing_speed
   });
+  resize();
 
   initSvgCanvas(settings.stream_width, settings.stream_width);
   demo();
