@@ -1,7 +1,20 @@
+@font-face {
+  font-family: DIN;
+  src: url(../font/DIN-1451-Mittelschrift.ttf);
+}
+@font-face {
+  font-family: Baskerville;
+  src: url(../font/Baskerville-regular.ttf);
+}
+
 body {
   background: black;
 }
-#stream img{
+
+.wrapper {
+  left: 50%;
+  transform: translateX(-50%);
+  position:relative;
   width: 900px;
   height: 900px;
 }
@@ -10,9 +23,17 @@ body {
   top:0;
   left:0;
 }
+#stream img{
+  width: 900px;
+  height: 900px;
+}
 #overlay {
   z-index: 1;
 }
+svg {
+
+}
+
 #divination {
   width:500px;
   height:300px;
@@ -24,18 +45,9 @@ body {
 #divination h4 {
   font-size: 24px;
   display: none;
+  font-family:DIN;
 }
 #divination span {
   font-size: 18px;
-}
-
-svg {
-
-}
-.wrapper {
-  left: 50%;
-  transform: translateX(-50%);
-  position:relative;
-  width: 900px;
-  height: 900px;
+  font-family:Baskerville;
 }

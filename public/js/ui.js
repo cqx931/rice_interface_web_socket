@@ -12,21 +12,23 @@ const settings = {
   sequence: true,
   message_display_time: 30 * 1000,
    // show everything at once or in sequence
-  fastMode: false // testing
+  fastMode: true // testing
   // TODO: specify different colors
 }
 
 if (settings.fastMode) {
   settings.fadeout_duration = 100;
   settings.animation_duration = 100;
+  settings.fadeout_duration = 100;
+  settings.message_display_time = 2 * 1000;
 }
 
 settings.ratio = settings.stream_width/settings.python_width;
 
 const dbug = true;
-let state = "idle"; // idle, process, predict
+let state = "idle"; // idle, processing, predict
 let svg;
-
+let timer;
 // helpers
 const lineGenerator = d3.line();
 let typeWriter;
@@ -41,8 +43,32 @@ const initSvgCanvas = function(w, h) {
     return svg;
 }
 
+const mode = function(m) {
+  state = m;
+  dbug && console.log("change state to:", state);
+  clearTimeout(timer); // clear old timer once mode is changed
+  if (m == "predict") {
+    dbug && console.log("set timer", settings.message_display_time)
+    timer = setTimeout(function(){
+      dbug && console.log("timeout")
+      clear();
+      $("#stream").fadeIn();
+      mode("idle");
+    }, settings.message_display_time)
+  }
+
+}
+
+const clear = function(){
+  dbug && console.log("clear")
+  $("#message").text("").fadeOut();
+  $("#category").text("").fadeOut();
+  $("#overlay").html("");
+}
+
 const demo = function() {
   dbug && console.log("test: parse from json");
+  mode("processing");
   $.getJSON( "data/layers.json", function( data ) {
     // const c = jQuery.parseJSON(data);
     interpreteData(data)
@@ -210,7 +236,7 @@ const reveal = function(path, callback){
 }
 
 const renderMessage = function(title, text){
-  // fade out stream
+  mode("predict")
   dbug && console.log("renderMessage")
   $('#category').text(title);
   $('#stream').fadeOut(settings.fadeout_duration, function() {
