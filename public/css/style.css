@@ -5,18 +5,31 @@ body {
   width: 900px;
   height: 900px;
 }
-#stream {
+.wrapper div{
   position:absolute;
   top:0;
   left:0;
 }
 #overlay {
-  position:absolute;
-  top:0;
-  left:0;
   z-index: 1;
 }
-svg{
+#divination {
+  width:500px;
+  height:300px;
+  margin:auto;
+  padding:100px;
+  color:white;
+  z-index:2;
+}
+#divination h4 {
+  font-size: 24px;
+  display: none;
+}
+#divination span {
+  font-size: 18px;
+}
+
+svg {
 
 }
 .wrapper {

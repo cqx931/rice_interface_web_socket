@@ -5,9 +5,20 @@ const settings = {
   display_width: 1920,
   display_height: 1080,
   animation:true,
+  between_delay:1000,
+  fadeout_duration:4000,
   animation_duration: 2000,
-  sequence: true, // show everything at once or in sequence
+  typing_speed:50,
+  sequence: true,
+  message_display_time: 30 * 1000,
+   // show everything at once or in sequence
+  fastMode: false // testing
   // TODO: specify different colors
+}
+
+if (settings.fastMode) {
+  settings.fadeout_duration = 100;
+  settings.animation_duration = 100;
 }
 
 settings.ratio = settings.stream_width/settings.python_width;
@@ -16,8 +27,10 @@ const dbug = true;
 let state = "idle"; // idle, process, predict
 let svg;
 
-// d3 helpers
+// helpers
 const lineGenerator = d3.line();
+let typeWriter;
+
 /****** FUNCTIONS ********/
 
 const initSvgCanvas = function(w, h) {
@@ -40,12 +53,12 @@ const interpreteData = function(data) {
   if (settings.sequence){
     // grain_contours -> box -> island_contours -> circle
     obj = parseData(data);
-    console.log(obj)
+    //TODO: improve this callback hell lol
     renderContour(obj.grain_contours.data, "grain_contours", function(){
       renderRect(obj.bounding_box.data, function(){
         renderContour(obj.island_contours.data, "island_contours", function(){
-          renderCircles(obj.island_circles.data, "island_circles", function(){
-            renderMessages("The Three Parallel", "Three visible cracks, foretells of a bountiful harvest or achievement.");
+          renderCircles(obj.island_circles.data, function(){
+            renderMessage("The Three Parallel", "Three visible cracks, foretells of a bountiful harvest or achievement.");
           })
         });
       });
@@ -65,7 +78,7 @@ const interpreteData = function(data) {
 
 }
 
-const renderCircles = function(data) {
+const renderCircles = function(data, callback=None) {
   data = JSON.parse(data);
   // can be multiple circles
   for (var i = 0; i < data.length; i++) {
@@ -82,8 +95,12 @@ const renderCircles = function(data) {
     .attr('class', "island_circles")
     .attr('stroke', 'white')
     .attr('fill', 'none')
-    .transition().delay(1000).duration(100)
-    .ease(d3.easeLinear).style("opacity", 1);
+    .transition().delay(settings.between_delay).duration(100)
+    .ease(d3.easeLinear).style("opacity", 1)
+    .end()
+    .then(() => {
+      callback()
+    });
   }
 
 }
@@ -117,13 +134,11 @@ const map2DArray = function(data){
   return points;
 }
 
-const renderRect = function(data, callback) {
+const renderRect = function(data, callback=None) {
 
   data = JSON.parse(data)[0];
   points = map2DArray(data);
-  console.log(data, points)
   var hull = d3.polygonHull(points);
-
   var line = d3.line()
     .curve(d3.curveLinearClosed);
 
@@ -134,7 +149,7 @@ const renderRect = function(data, callback) {
       .attr('fill', 'none')
       .transition().duration(100)
       .ease(d3.easeLinear).style("opacity", 1)
-      .delay(1000)
+      .delay(settings.between_delay)
       .end()
       .then(() => {
         callback()
@@ -196,11 +211,22 @@ const reveal = function(path, callback){
 
 const renderMessage = function(title, text){
   // fade out stream
-
+  dbug && console.log("renderMessage")
+  $('#category').text(title);
+  $('#stream').fadeOut(settings.fadeout_duration, function() {
+    $('#category').fadeIn(settings.animation_duration);
+    typewriter.pauseFor(settings.animation_duration+500).typeString(text).start();
+  });
 }
 
 $(document).ready(function() {
+  typewriter = new Typewriter(document.getElementById('message'), {
+      loop: false,
+      cursor: "",
+      delay: settings.typing_speed
+  });
+
   initSvgCanvas(settings.stream_width, settings.stream_width);
   demo();
-  //TODO: animation
+
 });
