@@ -1,3 +1,6 @@
+body {
+  background: black;
+}
 #stream img{
   width: 900px;
   height: 900px;
@@ -17,6 +20,8 @@ svg{
 
 }
 .wrapper {
+  left: 50%;
+  transform: translateX(-50%);
   position:relative;
   width: 900px;
   height: 900px;
