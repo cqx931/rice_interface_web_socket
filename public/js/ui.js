@@ -30,7 +30,7 @@ if (settings.fastMode) {
 
 settings.ratio = settings.stream_width / settings.python_width;
 
-var messageInterval
+var messageTimeout
 
 const dbug = true;
 let state = "idle"; // idle, processing, predict
@@ -71,7 +71,7 @@ const mode = function (m) {
 }
 
 const clear = function () {
-  if (messageInterval) clearInterval(messageInterval)
+  if (messageTimeout) clearTimeout(messageTimeout)
   has_prediction = false
   has_displayed_layered = false
   last_stored_data = false
@@ -97,8 +97,8 @@ const showPrediction = function (title, text) {
   }
   var category = findCategory(title)
   console.log("category", category)
-  messageInterval = setInterval(() => {
-    renderMessage(title + ": "+ category.name);
+  messageTimeout = setTimeout(() => {
+    renderMessage(title + ": "+ category.name, "two subtle signs of cracks split by a clear divider crack, showing a struggle between two things");
   }, 3000)
 }
 
