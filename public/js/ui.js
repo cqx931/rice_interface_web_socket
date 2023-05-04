@@ -1,7 +1,7 @@
 const settings = {
   //page
   stream_width: 1440,
-  python_width: 1440,
+  python_width: 1080,
   display_width: 1440,
   display_height: 2560,
   animation: true,
@@ -65,9 +65,9 @@ const mode = function (m) {
 
 const clear = function () {
   dbug && console.log("clear")
-  $("#message").text("").fadeOut();
-  $("#category").text("").fadeOut();
-  $("#overlay").html("");
+  // $("#message").text("").fadeOut();
+  // $("#category").text("").fadeOut();
+  $("svg").html("");
 }
 
 const demo = function () {
@@ -88,14 +88,20 @@ const showLayers = function (data) {
 }
 
 const interpreteData = function (data) {
-  console.log("interpreteData")
+  dbug && console.log("interpreteData")
   if (settings.sequence) {
     // grain_contours -> box -> island_contours -> circle
     obj = parseData(data);
     //TODO: improve this callback hell lol
-    renderContour(obj.outer_contour.data, "grain_contours", function () {
-      renderCircles(obj.non_intersecting_islands.data, function () {
-        // 
+    renderContour(obj.outer_contour.data, "grain_contours", () => {
+      renderCircles(obj.non_intersecting_islands.data,  () => {
+        renderLines(obj.lines_horizontal.data, () => {
+          renderLines(obj.lines_vertical.data, () => {
+            // renderCircles(obj.embrio_circle.data,  () => {
+
+            // })
+          })
+        })
       })
     });
     ;
@@ -122,31 +128,68 @@ const interpreteData = function (data) {
       });
       */
 
-const renderCircles = function (data, callback = None) {
+const renderCircles = function (data, callback) {
+  dbug && console.log("renderCircles", data, data.length)
   data = JSON.parse(data);
-  // can be multiple circles
-  for (var i = 0; i < data.length; i++) {
-    const c = data[i]
-    const x = c[0][0];
-    const y = c[0][1];
-    const r = c[1];
-    // center point & radius
-
-    svg.append('circle')
-      .attr('cx', map(x))
-      .attr('cy', map(y))
-      .attr('r', map(r))
-      .attr('class', "island_circles")
-      .attr('stroke', 'white')
-      .attr('fill', 'none')
-      .transition().delay(settings.between_delay).duration(100)
-      .ease(d3.easeLinear).style("opacity", 1)
-      .end()
-      .then(() => {
-        callback()
-      });
+  
+  if (data.length > 0) {
+    // can be multiple circles
+    for (var i = 0; i < data.length; i++) {
+      const c = data[i]
+      const x = c[0][0];
+      const y = c[0][1];
+      const r = c[1];
+      // center point & radius
+  
+      svg.append('circle')
+        .attr('cx', map(x))
+        .attr('cy', map(y))
+        .attr('r', map(r))
+        .attr('class', "island_circles")
+        .attr('stroke', 'white')
+        .attr('fill', 'none')
+        .transition().delay(settings.between_delay).duration(100)
+        .ease(d3.easeLinear).style("opacity", 1)
+        .end()
+        .then(() => {
+          callback()
+        });
+    }
+  } else {
+    callback()
   }
 
+}
+
+const renderLines = function (data, callback) {
+  data = JSON.parse(data);
+  console.log("renderLines", data)
+  if (data.length > 0) {
+    for (var i = 0; i < data[0].length; i++) {
+      let line = data[0][0]
+      const x1 = line[0]
+      const y1 = line[1]
+      const x2 = line[2]
+      const y2 = line[3]
+      // center point & radius
+  
+      svg.append('line')
+        .attr('x1', map(x1))
+        .attr('y1', map(y1))
+        .attr('x2', map(x2))
+        .attr('y2', map(y2))
+        .attr('class', "lines")
+        .attr('stroke', 'white')
+        .transition().delay(settings.between_delay).duration(100)
+        .ease(d3.easeLinear).style("opacity", 1)
+        .end()
+        .then(() => {
+          callback()
+        });
+    }
+  } else {
+    callback()
+  }
 }
 
 const map = function (x) {
@@ -240,6 +283,7 @@ const size = function (ar) {
 }
 
 const reveal = function (path, callback) {
+  console.log("reveal")
   path.transition()
     .duration(settings.animation_duration)
     .ease(d3.easeLinear)
