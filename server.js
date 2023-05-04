@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
 
   socket.on("clear", data => {
     console.log('socket, clear')
-    socket.broadcast.emit("results", "")
+    socket.broadcast.emit("clear", "")
   })
 });
 

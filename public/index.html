@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/socket.io/socket.io.js"></script>
-  <script src="./js/script.js"></script>
   <script src="./js/lib/d3.v6.min.js"></script>
   <script src="./js/lib/jquery.js"></script>
   <script src="./js/lib/typewriter.js"></script>
@@ -19,14 +18,13 @@
   </div>
 
   <div class="wrapper">
-    <div id="overlay">
-    </div>
+    <div id="overlay"></div>
     <div id="stream">
-    <!-- <img src="data/p09_rice30.jpg" alt=""> -->
-    <img src="http://192.168.1.22:8080/?action=stream" alt="">
+      <!-- <img src="data/p09_rice30.jpg" alt=""> -->
+      <img src="http://192.168.1.22:8080/?action=stream" alt="">
     </div>
   </div>
-
-<script src="./js/ui.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/ui.js"></script>
 </body>
 </html>
