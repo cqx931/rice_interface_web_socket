@@ -19,6 +19,16 @@ io.on('connection', (socket) => {
     console.log('socket, layers', data)
     socket.broadcast.emit("layers", data)
   })
+
+  socket.on("results", data => {
+    console.log('socket, results', data)
+    socket.broadcast.emit("results", data)
+  })
+
+  socket.on("clear", data => {
+    console.log('socket, clear')
+    socket.broadcast.emit("results", "")
+  })
 });
 
 // setting the server to run on port 3000
