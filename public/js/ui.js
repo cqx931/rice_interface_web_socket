@@ -301,6 +301,7 @@ const renderMessage = function (title, text) {
   mode("predict")
   dbug && console.log("renderMessage")
   $('#category').text(title);
+  // TODO: Instead of fading out, it shall change opacity to 0.2
   $('#stream').fadeOut(settings.fadeout_duration, function () {
     $('#category').fadeIn(settings.animation_duration);
     typewriter.pauseFor(settings.animation_duration + 500).typeString(text).start();
