@@ -44,7 +44,7 @@ const categories = [
     },
     {
       name: "Mirror",
-      text: ["Two cracks facing towards each other. Everything that you touch touches you back. Let life leave marks on you.", "Two evenly distributed cracks, as if they are mirroring each other. Every person you meet has a unique story and perspective. Listen to them with an open heart and you may learn something new."],
+      text: ["Two cracks interact with each other. Everything that you touch touches you back. Let life leave marks on you.", "Two cracks are distributed on the surface of the rice grain. Every person you meet has a unique story and perspective. Listen to them with an open heart and you may learn something new."],
       detections: [],
       f: (s) => s.count('_') == 2 && s.count('|') == 0, // the mirror
     },
