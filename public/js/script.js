@@ -13,13 +13,13 @@ socket.on("layers", data => {
   showLayers(data)
 })
 
-socket.on("results", data => {
-  console.log('socket, results', data)
-  showPrediction(data)
-})
+// socket.on("results", data => {
+//   console.log('socket, results', data)
+//   showPrediction(data)
+// })
 
 
-socket.on("clear", data => {
-  console.log('socket, clear!')
-  clear()
-})
+// socket.on("clear", data => {
+//   console.log('socket, clear!')
+//   clear()
+// })

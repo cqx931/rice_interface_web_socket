@@ -1,7 +1,7 @@
 const settings = {
   //page
   stream_width: 1440,
-  python_width: 3040,
+  python_width: 1440,
   display_width: 1440,
   display_height: 2560,
   animation: true,
@@ -85,11 +85,10 @@ const showPrediction = function (title, text) {
 
 const showLayers = function (data) {
   interpreteData(data)
-  $("#stream").fadeIn();
 }
 
 const interpreteData = function (data) {
-  print("interpreteData")
+  console.log("interpreteData")
   if (settings.sequence) {
     // grain_contours -> box -> island_contours -> circle
     obj = parseData(data);
@@ -214,7 +213,7 @@ const tour = function (data, name) {
     .attr('fill', 'none');
 }
 
-const renderContour = function (data, name, callback = None) {
+const renderContour = function (data, name, callback) {
   data = JSON.parse(data)[0];
   points = map2DArray(data);
   var pathData = lineGenerator(points);
