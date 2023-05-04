@@ -16,6 +16,11 @@ const settings = {
   // TODO: specify different colors
 }
 
+var has_prediction = false
+var last_stored_data = false
+
+var has_displayed_layered = false
+
 if (settings.fastMode) {
   settings.fadeout_duration = 100;
   settings.animation_duration = 100;
@@ -24,6 +29,8 @@ if (settings.fastMode) {
 }
 
 settings.ratio = settings.stream_width / settings.python_width;
+
+var messageInterval
 
 const dbug = true;
 let state = "idle"; // idle, processing, predict
@@ -64,10 +71,14 @@ const mode = function (m) {
 }
 
 const clear = function () {
+  if (messageInterval) clearInterval(messageInterval)
+  has_prediction = false
+  has_displayed_layered = false
+  last_stored_data = false
   dbug && console.log("clear")
-  // $("#message").text("").fadeOut();
-  // $("#category").text("").fadeOut();
-  $("svg").html("");
+  $("#message").text("").fadeOut();
+  $("#category").text("").fadeOut();
+  $("svg").html("").fadeOut();
 }
 
 const demo = function () {
@@ -80,16 +91,30 @@ const demo = function () {
 }
 
 const showPrediction = function (title, text) {
+  has_prediction = true
+  if (last_stored_data) {
+    interpreteData(last_stored_data)
+  }
   var category = findCategory(title)
   console.log("category", category)
-  renderMessage(title, "Three visible cracks, foretells of a bountiful harvest or achievement.");
+  messageInterval = setInterval(() => {
+    renderMessage(title + ": "+ category.name);
+  }, 3000)
 }
 
 const showLayers = function (data) {
-  interpreteData(data)
+  if (has_prediction) {
+    interpreteData(data)
+  } else {
+    last_stored_data = data
+  }
 }
 
 const interpreteData = function (data) {
+  if (has_displayed_layered) return 
+  $("svg").fadeIn();
+  last_stored_data = false
+  has_displayed_layered = true
   dbug && console.log("interpreteData")
   if (settings.sequence) {
     // grain_contours -> box -> island_contours -> circle
@@ -99,9 +124,9 @@ const interpreteData = function (data) {
       renderCircles(obj.non_intersecting_islands.data,  () => {
         renderLines(obj.lines_horizontal.data, () => {
           renderLines(obj.lines_vertical.data, () => {
-            // renderCircles(obj.embrio_circle.data,  () => {
+            renderEmbrio(obj.embrio_circle.data,  () => {
 
-            // })
+            })
           })
         })
       })
@@ -160,15 +185,46 @@ const renderCircles = function (data, callback) {
   } else {
     callback()
   }
+}
 
+const renderEmbrio = function (data, callback) {
+  dbug && console.log("renderEmbrio", data, data.length)
+  data = JSON.parse(data);
+  
+  if (data.length > 0) {
+    // can be multiple circles
+    for (var i = 0; i < data.length; i++) {
+      const c = data[i]
+      const x = c[0][0];
+      const y = c[0][1];
+      const r = c[1];
+      // center point & radius
+  
+      svg.append('circle')
+        .attr('cx', map(x))
+        .attr('cy', map(y))
+        .attr('r', map(r))
+        .attr('class', "island_circles")
+        .attr('stroke', 'white')
+        .attr('fill', 'none')
+        .transition().delay(settings.between_delay).duration(100)
+        .ease(d3.easeLinear).style("opacity", 1)
+        .end()
+        .then(() => {
+          callback()
+        });
+    }
+  } else {
+    callback()
+  }
 }
 
 const renderLines = function (data, callback) {
   data = JSON.parse(data);
   console.log("renderLines", data)
   if (data.length > 0) {
-    for (var i = 0; i < data[0].length; i++) {
-      let line = data[0][0]
+    for (var i = 0; i < data.length; i++) {
+      let line = data[i][0]
       const x1 = line[0]
       const y1 = line[1]
       const x2 = line[2]
@@ -182,6 +238,7 @@ const renderLines = function (data, callback) {
         .attr('y2', map(y2))
         .attr('class', "lines")
         .attr('stroke', 'white')
+        .attr('stroke-width', 2)
         .transition().delay(settings.between_delay).duration(100)
         .ease(d3.easeLinear).style("opacity", 1)
         .end()
@@ -259,6 +316,7 @@ const tour = function (data, name) {
 }
 
 const renderContour = function (data, name, callback) {
+  console.log("renderContour!")
   data = JSON.parse(data)[0];
   points = map2DArray(data);
   var pathData = lineGenerator(points);
@@ -304,10 +362,10 @@ const renderMessage = function (title, text) {
   dbug && console.log("renderMessage")
   $('#category').text(title);
   // TODO: Instead of fading out, it shall change opacity to 0.2
-  $('#stream').fadeOut(settings.fadeout_duration, function () {
+  // $('#stream').fadeOut(settings.fadeout_duration, function () {
     $('#category').fadeIn(settings.animation_duration);
     typewriter.pauseFor(settings.animation_duration + 500).typeString(text).start();
-  });
+  // });
 }
 
 $(document).ready(function () {

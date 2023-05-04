@@ -21,17 +21,17 @@ const categories = [
       f: (s) => s == "", // The Mist -  empty
     },
     {
-      name: "exceptions The Broken Cloud exception",
+      name: "The Broken Cloud exception",
       detections: [],
       f: (s) => s.count('_') > 5, // The Broken Cloud
     },
     {
-      name: "1[_] The Libra",
+      name: "The Libra",
       detections: [],
       f: (s) => s.count('*') == 2 && s.count('_') == 1, // libra
     },
     {
-      name: "no[|] The Divider",
+      name: "The Divider",
       detections: [],
       f: (s) => s.count('_') == 1 && s.count('|') == 0, // divider
     },
@@ -51,7 +51,7 @@ const categories = [
       f: (s) => s.count('_') == 4 && s.count('|') == 0, // Four cracks
     },
     {
-      name: "The Clustered Five	",
+      name: "The Clustered Five",
       detections: [],
       f: (s) => s.count('_') == 5, // The Clustered Five
     },

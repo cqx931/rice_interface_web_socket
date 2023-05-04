@@ -8,16 +8,16 @@ const height = 1920;
 
 console.log("process.env", process.env.npm_config_url)
 
-const url = process.env.npm_config_url || "http://example.com"
+const url = "http://localhost:3000/"
 
 app.on('ready', function() {
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    'width': width,
-    'height': height,
-    'max-width': width,
-    'max-height': height,
+    //'width': width,
+    //'height': height,
+    //'max-width': width,
+    //'max-height': height,
     'fullscreen': true,
     'frame': false,
     'kiosk': true,

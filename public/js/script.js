@@ -1,11 +1,10 @@
 const socket = io();
-
 // render socket message on div
 socket.on("layers", data => {
   console.log('socket, layers', data)
   mode("processing");
-
   showLayers(data)
+
 })
 
 socket.on("results", data => {
