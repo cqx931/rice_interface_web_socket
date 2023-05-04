@@ -92,13 +92,16 @@ const demo = function () {
 
 const showPrediction = function (title, text) {
   has_prediction = true
+
   if (last_stored_data) {
     interpreteData(last_stored_data)
   }
+
   var category = findCategory(title)
-  console.log("category", category)
+  dbug && console.log("category", category)
+
   messageTimeout = setTimeout(() => {
-    renderMessage(title + ": "+ category.name, "two subtle signs of cracks split by a clear divider crack, showing a struggle between two things");
+    renderMessage(title + ": "+ category.name, category.text[Math.floor(Math.random()*category.text.length)]);
   }, 3000)
 }
 
@@ -111,7 +114,7 @@ const showLayers = function (data) {
 }
 
 const interpreteData = function (data) {
-  if (has_displayed_layered) return 
+  if (has_displayed_layered) return
   $("svg").fadeIn();
   last_stored_data = false
   has_displayed_layered = true
@@ -158,7 +161,7 @@ const interpreteData = function (data) {
 const renderCircles = function (data, callback) {
   dbug && console.log("renderCircles", data, data.length)
   data = JSON.parse(data);
-  
+
   if (data.length > 0) {
     // can be multiple circles
     for (var i = 0; i < data.length; i++) {
@@ -167,7 +170,7 @@ const renderCircles = function (data, callback) {
       const y = c[0][1];
       const r = c[1];
       // center point & radius
-  
+
       svg.append('circle')
         .attr('cx', map(x))
         .attr('cy', map(y))
@@ -190,7 +193,7 @@ const renderCircles = function (data, callback) {
 const renderEmbrio = function (data, callback) {
   dbug && console.log("renderEmbrio", data, data.length)
   data = JSON.parse(data);
-  
+
   if (data.length > 0) {
     // can be multiple circles
     for (var i = 0; i < data.length; i++) {
@@ -199,7 +202,7 @@ const renderEmbrio = function (data, callback) {
       const y = c[0][1];
       const r = c[1];
       // center point & radius
-  
+
       svg.append('circle')
         .attr('cx', map(x))
         .attr('cy', map(y))
@@ -230,7 +233,7 @@ const renderLines = function (data, callback) {
       const x2 = line[2]
       const y2 = line[3]
       // center point & radius
-  
+
       svg.append('line')
         .attr('x1', map(x1))
         .attr('y1', map(y1))
@@ -316,7 +319,7 @@ const tour = function (data, name) {
 }
 
 const renderContour = function (data, name, callback) {
-  console.log("renderContour!")
+  dbug && console.log("renderContour!")
   data = JSON.parse(data)[0];
   points = map2DArray(data);
   var pathData = lineGenerator(points);
@@ -343,7 +346,6 @@ const size = function (ar) {
 }
 
 const reveal = function (path, callback) {
-  console.log("reveal")
   path.transition()
     .duration(settings.animation_duration)
     .ease(d3.easeLinear)
