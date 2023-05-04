@@ -16,6 +16,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   position:relative;
+  margin-top: 540px;
 }
 .wrapper div{
   position:absolute;
@@ -37,23 +38,32 @@ body {
 #overlay {
   z-index: 1;
 }
-svg {
-
+svg{
+opacity: 0.75;
 }
 
 #divination {
-  width:500px;
+  width:600px;
   height:300px;
+  position:absolute;
+  bottom:200px;
+  left:0;
+  right:0;
   margin:auto;
   padding:100px;
   color:white;
   z-index:2;
 }
+
 #divination h4 {
   font-size: 24px;
   display: none;
   font-family:DIN;
 }
+#divination #message {
+  display: none;
+}
+
 #divination span {
   font-size: 18px;
   font-family:Baskerville;

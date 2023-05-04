@@ -62,7 +62,7 @@ function shuffle(array) {
 }
 
 function findCategory (line) {
-  console.log("findCategory", line)
+  console.log("findCategory", line, categories)
   var was_found = false
   for (i in categories) {
     if (categories[i].f(line)) {
@@ -70,9 +70,5 @@ function findCategory (line) {
       return categories[i]
     }
   }
-  return {
-    name: "The Mist",
-    detections: [],
-    f: (s) => s == "", // The Mist -  empty
-  }
+  return categories[3] // mist
 }

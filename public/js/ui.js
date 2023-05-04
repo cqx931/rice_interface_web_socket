@@ -8,7 +8,7 @@ const settings = {
   between_delay: 1000,
   fadeout_duration: 4000,
   animation_duration: 2000,
-  typing_speed: 50,
+  typing_speed: 80,
   sequence: true,
   message_display_time: 30 * 1000,
   // show everything at once or in sequence
@@ -61,6 +61,7 @@ const mode = function (m) {
   if (m == "predict") {
     dbug && console.log("set timer", settings.message_display_time)
     timer = setTimeout(function () {
+      //TODO: bug - if rice is taken out before this timer ends, overlay won't be cleared
       dbug && console.log("timeout")
       clear();
       $("#stream").fadeIn();
@@ -76,7 +77,9 @@ const clear = function () {
   has_displayed_layered = false
   last_stored_data = false
   dbug && console.log("clear")
-  $("#message").text("").fadeOut();
+  // clear typeWriter instead of message!!!
+  $(".Typewriter__wrapper").text("");
+  $("#message").fadeOut();
   $("#category").text("").fadeOut();
   $("svg").html("").fadeOut();
 }
@@ -127,9 +130,8 @@ const interpreteData = function (data) {
       renderCircles(obj.non_intersecting_islands.data,  () => {
         renderLines(obj.lines_horizontal.data, () => {
           renderLines(obj.lines_vertical.data, () => {
-            renderEmbrio(obj.embrio_circle.data,  () => {
-
-            })
+            // renderEmbrio(obj.embrio_circle.data,  () => {
+            // })
           })
         })
       })
@@ -363,17 +365,18 @@ const renderMessage = function (title, text) {
   mode("predict")
   dbug && console.log("renderMessage")
   $('#category').text(title);
-  // TODO: Instead of fading out, it shall change opacity to 0.2
-  // $('#stream').fadeOut(settings.fadeout_duration, function () {
+  //  Instead of fading out, it shall change opacity to 0.4
+  $('#stream').fadeTo(settings.fadeout_duration, 0.4, function () {
     $('#category').fadeIn(settings.animation_duration);
-    typewriter.pauseFor(settings.animation_duration + 500).typeString(text).start();
-  // });
+    $('#message').show();
+    typewriter.typeString(text).start();
+  });
 }
 
 $(document).ready(function () {
   typewriter = new Typewriter(document.getElementById('message'), {
     loop: false,
-    cursor: "",
+    cursor: "|",
     delay: settings.typing_speed
   });
   resize();
