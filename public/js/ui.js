@@ -80,6 +80,8 @@ const demo = function () {
 }
 
 const showPrediction = function (title, text) {
+  var category = findCategory(title)
+  console.log("category", category)
   renderMessage(title, "Three visible cracks, foretells of a bountiful harvest or achievement.");
 }
 
