@@ -56,15 +56,16 @@ opacity: 0.75;
 }
 
 #divination h4 {
-  font-size: 24px;
+  font-size: 28px;
   display: none;
   font-family:DIN;
+  color: #ddd;// less bright
 }
 #divination #message {
   display: none;
 }
 
 #divination span {
-  font-size: 18px;
+  font-size: 22px;
   font-family:Baskerville;
 }
