@@ -130,8 +130,9 @@ const interpreteData = function (data) {
       renderCircles(obj.non_intersecting_islands.data,  () => {
         renderLines(obj.lines_horizontal.data, () => {
           renderLines(obj.lines_vertical.data, () => {
-            // renderEmbrio(obj.embrio_circle.data,  () => {
-            // })
+            renderTriangles(obj.triangle_faults.data, () => {
+
+            })
           })
         })
       })
@@ -253,6 +254,46 @@ const renderLines = function (data, callback) {
     }
   } else {
     callback()
+  }
+}
+
+const renderTriangles = function (data, callback) {
+  data = JSON.parse(data);
+  console.log("renderTriangles", data);
+  if (data.length > 0) {
+    for (var i = 0; i < data.length; i++) {
+      let triangle = data[i];
+      let lines = [
+        [triangle[0][0], triangle[0][1], triangle[1][0], triangle[1][1]],
+        [triangle[1][0], triangle[1][1], triangle[2][0], triangle[2][1]],
+        [triangle[2][0], triangle[2][1], triangle[0][0], triangle[0][1]],
+      ];
+
+      for (var j = 0; j < lines.length; j++) {
+        let line = lines[j];
+        const x1 = line[0];
+        const y1 = line[1];
+        const x2 = line[2];
+        const y2 = line[3];
+        
+        svg.append('line')
+          .attr('x1', map(x1))
+          .attr('y1', map(y1))
+          .attr('x2', map(x2))
+          .attr('y2', map(y2))
+          .attr('class', "lines")
+          .attr('stroke', 'white')
+          .attr('stroke-width', 2)
+          .transition().delay(settings.between_delay).duration(100)
+          .ease(d3.easeLinear).style("opacity", 1)
+          .end()
+          .then(() => {
+            callback();
+          });
+      }
+    }
+  } else {
+    callback();
   }
 }
 

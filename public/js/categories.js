@@ -72,4 +72,10 @@ const categories = [
       detections: [],
       f: (s) => s.count('+') >= 3 && s.count('|') >= 1, // branches
     },
+    {
+      name: "The Teller",
+      text: ["a clear single crack the opens like a telling mouth, unspoken words need to be told and heard, the bigger the opening, the more needs to be shared."],
+      detections: [],
+      f: (s) => s.count('>') >= 1,
+    },
   ]
