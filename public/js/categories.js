@@ -2,13 +2,13 @@
 const categories = [
     {
       name: "The Teller",
-      text: ["a clear single crack the opens like a telling mouth, unspoken words need to be told and heard, the bigger the opening, the more needs to be shared."],
+      text: ["A clear single crack that opens like a telling mouth, unspoken words need to be told and heard, the bigger the opening, the more needs to be shared."],
       detections: [],
       f: (s) => s.count('>') >= 1,
     },
     {
       name: "Branches",
-      text: ["A vertical crack cut across multiple horizontal cracks in the middle of the surface, foretells a journey filled with many paths and possibilities.","Two or multiple lines meets, speaks of unexpected allies and the coming together of forces."],
+      text: ["A vertical crack cut across one or multiple horizontal cracks in the middle of the surface, foretells a journey filled with many paths and possibilities.","Two or multiple lines meets, speaks of unexpected allies and the coming together of forces."],
       detections: [],
       f: (s) => s.count('|') == 1 && s.count('+') >= 1, // branches
     },
@@ -20,7 +20,7 @@ const categories = [
     },
     {
       name: "Hidden Balance",
-      text: ["Two inner cracks that doesn't penetrate towards the surface, a hidden but fragile balance is achieved at the current moment."],
+      text: ["Two subtle signs of cracks, a hidden but fragile balance is achieved at the current moment."],
       detections: [],
       f: (s) => s.count('*') == 2 && s.count('_') == 0 && s.count('|') == 0, // hiddem balance
     },
@@ -32,13 +32,13 @@ const categories = [
     },
     {
       name: "The Libra",
-      text: ["Two subtle signs of cracks split by a clear divider crack, showing a struggle between two things."],
+      text: ["Two subtle signs of cracks and one clear divider crack, showing a struggle between two things."],
       detections: [],
       f: (s) => s.count('*') == 2 && s.count('_') == 1, // libra
     },
     {
       name: "The Divider",
-      text: ["There's a path, and the choice to follow it is yours.", "A clear horizontal crack the separate the grain into two almost identical halves, an indicator of a clear division that needs to be made."],
+      text: ["One clear crack that runs through the rice grain. There's a path, and the choice to follow it is yours.", "A clear horizontal crack that separates the grain, an indicator of a clear decision that needs to be made."],
       detections: [],
       f: (s) => s.count('_') == 1 && s.count('|') == 0, // divider
     },
@@ -74,7 +74,7 @@ const categories = [
     },
     {
       name: "The Broken Cloud",
-      text: ["Rough and uneven surface, speaks of challenges and obstacles. ", "You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. let the universe hold you up."],
+      text: ["Rough and uneven surface, speaks of challenges and obstacles.", "You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. let the universe hold you up."],
       detections: [],
       f: (s) => s.count('_') > 5, // The Broken Cloud
     },
