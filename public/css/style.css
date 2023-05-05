@@ -7,6 +7,10 @@
   src: url(../font/Baskerville-regular.ttf);
 }
 
+html {
+  cursor: none;
+}
+
 body {
   background: black;
   overflow: hidden;
@@ -46,26 +50,26 @@ opacity: 0.75;
   width:600px;
   height:300px;
   position:absolute;
-  bottom:200px;
+  bottom:150px;
   left:0;
   right:0;
   margin:auto;
   padding:100px;
-  color:white;
   z-index:2;
+  color: #ddd;
 }
 
 #divination h4 {
-  font-size: 28px;
+  font-size: 48px;
   display: none;
   font-family:DIN;
-  color: #ddd;// less bright
+ 
 }
 #divination #message {
   display: none;
 }
 
 #divination span {
-  font-size: 22px;
+  font-size: 32px;
   font-family:Baskerville;
 }

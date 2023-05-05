@@ -10,9 +10,10 @@ const settings = {
   animation_duration: 2000,
   typing_speed: 80,
   sequence: true,
-  message_display_time: 30 * 1000,
+  message_display_time: 60 * 1000,
   // show everything at once or in sequence
-  fastMode: false // testing
+  fastMode: false, // testing
+  drawTrigles: false
   // TODO: specify different colors
 }
 
@@ -130,7 +131,7 @@ const interpreteData = function (data) {
       renderCircles(obj.non_intersecting_islands.data,  () => {
         renderLines(obj.lines_horizontal.data, () => {
           renderLines(obj.lines_vertical.data, () => {
-            renderTriangles(obj.triangle_faults.data, () => {
+            if (obj.triangle_faults) renderTriangles(obj.triangle_faults.data, () => {
 
             })
           })
@@ -182,7 +183,7 @@ const renderCircles = function (data, callback) {
         .attr('stroke', 'white')
         .attr('fill', 'none')
         .transition().delay(settings.between_delay).duration(100)
-        .ease(d3.easeLinear).style("opacity", 1)
+        .ease(d3.easeLinear).style("opacity", 1).duration(500)
         .end()
         .then(() => {
           callback()
@@ -245,7 +246,7 @@ const renderLines = function (data, callback) {
         .attr('class', "lines")
         .attr('stroke', 'white')
         .attr('stroke-width', 2)
-        .transition().delay(settings.between_delay).duration(100)
+        .transition().delay(settings.between_delay).duration(500)
         .ease(d3.easeLinear).style("opacity", 1)
         .end()
         .then(() => {
@@ -283,9 +284,9 @@ const renderTriangles = function (data, callback) {
           .attr('y2', map(y2))
           .attr('class', "lines")
           .attr('stroke', 'white')
-          .attr('stroke-width', 2)
+          .attr('stroke-width', 1)
           .transition().delay(settings.between_delay).duration(100)
-          .ease(d3.easeLinear).style("opacity", 1)
+          .ease(d3.easeLinear).style("opacity", 1).duration(500)
           .end()
           .then(() => {
             callback();
@@ -409,6 +410,7 @@ const renderMessage = function (title, text) {
   //  Instead of fading out, it shall change opacity to 0.4
   $('#stream').fadeTo(settings.fadeout_duration, 0.4, function () {
     $('#category').fadeIn(settings.animation_duration);
+
     $('#message').show();
     typewriter.typeString(text).start();
   });

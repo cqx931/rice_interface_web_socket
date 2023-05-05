@@ -1,6 +1,12 @@
 
 const categories = [
     {
+      name: "The Teller",
+      text: ["a clear single crack the opens like a telling mouth, unspoken words need to be told and heard, the bigger the opening, the more needs to be shared."],
+      detections: [],
+      f: (s) => s.count('>') >= 1,
+    },
+    {
       name: "Branches",
       text: ["A vertical crack cut across multiple horizontal cracks in the middle of the surface, foretells a journey filled with many paths and possibilities.","Two or multiple lines meets, speaks of unexpected allies and the coming together of forces."],
       detections: [],
@@ -23,12 +29,6 @@ const categories = [
       text: ["No clear sign cracks with uneven surface. The destiny is not set, everything is possible."],
       detections: [],
       f: (s) => s == "", // The Mist -  empty
-    },
-    {
-      name: "The Broken Cloud",
-      text: ["Rough and uneven surface, speaks of challenges and obstacles. ", "You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. let the universe hold you up."],
-      detections: [],
-      f: (s) => s.count('_') > 5, // The Broken Cloud
     },
     {
       name: "The Libra",
@@ -73,9 +73,9 @@ const categories = [
       f: (s) => s.count('+') >= 3 && s.count('|') >= 1, // branches
     },
     {
-      name: "The Teller",
-      text: ["a clear single crack the opens like a telling mouth, unspoken words need to be told and heard, the bigger the opening, the more needs to be shared."],
+      name: "The Broken Cloud",
+      text: ["Rough and uneven surface, speaks of challenges and obstacles. ", "You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. let the universe hold you up."],
       detections: [],
-      f: (s) => s.count('>') >= 1,
+      f: (s) => s.count('_') > 5, // The Broken Cloud
     },
   ]

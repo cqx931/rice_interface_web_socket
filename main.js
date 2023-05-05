@@ -27,6 +27,7 @@ app.on('ready', function() {
   });
 
   mainWindow.loadURL(url)
+  mainWindow.setAlwaysOnTop(true, 'screen')
 
 });
 
