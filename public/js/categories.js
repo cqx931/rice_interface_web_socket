@@ -28,7 +28,7 @@ const categories = [
       name: "The Broken Cloud",
       text: ["Rough and uneven surface, speaks of challenges and obstacles. You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. Let the universe hold you up."],
       detections: [],
-      f: (s) => s.count('_') > 5, // The Broken Cloud
+      f: (s) => s.count('_') > 2 && s.count('|') > 2 && s.length > 6, // The Broken Cloud
     },
     {
       name: "The Libra",
@@ -68,8 +68,14 @@ const categories = [
     },
     {
       name: "Curvy Lines",
-      text: ["Scattered curvy paths with unclear direction or tendency. A decision needs to be made so that the right path shall reveal.", "Do you miss your tail? Some cats do too."],
+      text: ["Scattered curvy paths with unclear direction or tendency. A decision needs to be made so that the right path shall reveal."],
       detections: [],
-      f: (s) => s.count('+') >= 3 && s.count('|') >= 1, // branches
+      f: (s) => s.count('+') >= 2 && s.count('|') >= 1, // branches
     },
+    {
+      name: "The Serpentine",
+      text: ["A long vertical crack winding its way on the edge, speaks of hidden truths and secrets waiting to be revealed."],
+      detections: [],
+      f: (s) => s.count('|') == 1, // branches
+    }
   ]
