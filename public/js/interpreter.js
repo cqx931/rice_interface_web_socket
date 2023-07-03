@@ -62,7 +62,7 @@ function shuffle(array) {
 }
 
 function findCategory (line) {
-  console.log("findCategory", line, categories)
+  console.log("findCategory", line, line.length)
   var was_found = false
   for (i in categories) {
     if (categories[i].f(line)) {
