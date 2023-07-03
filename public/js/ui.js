@@ -1,9 +1,9 @@
 const settings = {
   //page
-  stream_width: 1440,
-  python_width: 1080,
-  display_width: 1440,
-  display_height: 2560,
+  stream_width: 800,
+  python_width: 480,
+  display_width: 800,
+  display_height: 800,
   animation: true,
   between_delay: 1000,
   fadeout_duration: 4000,
@@ -276,7 +276,7 @@ const renderTriangles = function (data, callback) {
         const y1 = line[1];
         const x2 = line[2];
         const y2 = line[3];
-        
+
         svg.append('line')
           .attr('x1', map(x1))
           .attr('y1', map(y1))

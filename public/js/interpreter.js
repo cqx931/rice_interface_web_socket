@@ -10,7 +10,7 @@ function readTextFile(file, callback) {
     rawFile.send(null);
 }
 
-String.prototype.count=function(c) { 
+String.prototype.count=function(c) {
   var result = 0, i = 0;
   for(i;i<this.length;i++)if(this[i]==c)result++;
   return result;
@@ -22,7 +22,7 @@ function testInterpreter() {
     patterns_with_names.map(function (pattern, i) {
       pattern.regex = patterns[i]
     })
-  
+
     data.split('\n').forEach(function (line) {
       was_found = false
       categories.forEach(function (category, i) {
@@ -32,7 +32,7 @@ function testInterpreter() {
         }
       })
     })
-  
+
     for (let i = 0; i < categories.length; i++) {
       console.log(categories[i].name, categories[i].detections.length)
     }

@@ -26,7 +26,7 @@ const categories = [
     },
     {
       name: "The Broken Cloud",
-      text: ["Rough and uneven surface, speaks of challenges and obstacles. Something smooth hides inside every rough surface.", "You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. Let the universe hold you up."],
+      text: ["Rough and uneven surface, speaks of challenges and obstacles. You might feel the weight of the world fall on you, but what we call up and down is an illusion, a matter of perspective. Let the universe hold you up."],
       detections: [],
       f: (s) => s.count('_') > 5, // The Broken Cloud
     },
