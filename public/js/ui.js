@@ -94,18 +94,19 @@ const demo = function () {
   });
 }
 
-const showPrediction = function (title, text) {
+const showPrediction = function (symbols, text) {
   has_prediction = true
 
   if (last_stored_data) {
     interpreteData(last_stored_data)
   }
 
-  var category = findCategory(title)
+  var category = findCategory(symbols)
   dbug && console.log("category", category)
 
   messageTimeout = setTimeout(() => {
-    renderMessage(title + ": "+ category.name, category.text[Math.floor(Math.random()*category.text.length)]);
+    var index = Math.floor(Math.random()*category.text.length);
+    renderMessage(category.name + ": "+ symbols, category.text[index], category.number[index]);
   }, 3000)
 }
 
@@ -403,10 +404,10 @@ const reveal = function (path, callback) {
     });
 }
 
-const renderMessage = function (title, text) {
+const renderMessage = function (title, text, index) {
   mode("predict")
   dbug && console.log("renderMessage")
-  $('#category').text(title);
+  $('#category').text(index + ". " + title);
   //  Instead of fading out, it shall change opacity to 0.4
   $('#stream').fadeTo(settings.fadeout_duration, 0.4, function () {
     $('#category').fadeIn(settings.animation_duration);
