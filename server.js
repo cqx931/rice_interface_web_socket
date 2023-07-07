@@ -14,7 +14,7 @@ const io = new Server(server);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  
+
   socket.on("layers", data => {
     console.log('socket, layers', data)
     socket.broadcast.emit("layers", data)

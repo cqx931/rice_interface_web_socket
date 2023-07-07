@@ -276,7 +276,7 @@ const renderTriangles = function (data, callback) {
         const y1 = line[1];
         const x2 = line[2];
         const y2 = line[3];
-        
+
         svg.append('line')
           .attr('x1', map(x1))
           .attr('y1', map(y1))
@@ -412,6 +412,7 @@ const renderMessage = function (title, text) {
     $('#category').fadeIn(settings.animation_duration);
 
     $('#message').show();
+    //console.log("typewriter", typewriter)
     typewriter.typeString(text).start();
   });
 }
