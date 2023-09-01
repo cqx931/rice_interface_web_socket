@@ -12,6 +12,7 @@ function readTextFile(file, callback) {
 
 String.prototype.count=function(c) {
   var result = 0, i = 0;
+  
   for(i;i<this.length;i++)if(this[i]==c)result++;
   return result;
 };
@@ -70,5 +71,5 @@ function findCategory (line) {
       return categories[i]
     }
   }
-  return categories[3] // mist
+  return categories[4] // fallback: mist
 }

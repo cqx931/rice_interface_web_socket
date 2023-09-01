@@ -1,9 +1,9 @@
 const settings = {
   //page
-  stream_width: 1440,
-  python_width: 1080,
-  display_width: 1440,
-  display_height: 2560,
+  stream_width: 1600,
+  python_width: 800,
+  display_width: 2160,
+  display_height: 3840,
   animation: true,
   between_delay: 1000,
   fadeout_duration: 4000,
@@ -73,15 +73,23 @@ const mode = function (m) {
 }
 
 const clear = function () {
+  dbug && console.log("clear")
+  clearMessage()
+  clearLayer()
+}
+
+const clearMessage = function () {
   if (messageTimeout) clearTimeout(messageTimeout)
   has_prediction = false
-  has_displayed_layered = false
-  last_stored_data = false
-  dbug && console.log("clear")
   // clear typeWriter instead of message!!!
   $(".Typewriter__wrapper").text("");
   $("#message").fadeOut();
   $("#category").text("").fadeOut();
+}
+
+const clearLayer = function() {
+  has_displayed_layered = false
+  last_stored_data = false
   $("svg").html("").fadeOut();
 }
 

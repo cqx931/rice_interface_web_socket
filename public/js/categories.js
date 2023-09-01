@@ -1,5 +1,12 @@
 
-const categories = [
+const categories = [,
+    {
+      name: "The Teller",
+      text: ["A clear single crack that opens like a telling mouth, unspoken words need to be told and heard. The bigger the opening, the more needs to be shared."],
+      number:["23"],
+      detections: [],
+      f: (s) => s.count('>') > 0, // The Teller
+    },
     {
       name: "Branches",
       text: ["A vertical crack cut across multiple horizontal cracks in the middle of the surface, foretells a journey filled with many paths and possibilities.","Two or multiple lines meets, speaks of unexpected allies and the coming together of forces."],
@@ -9,14 +16,14 @@ const categories = [
     },
     {
       name: "The Delicate Heart",
-      text: ["Warns of fragility and the need for caution and obstacles to be overcome. But you will move through the obstacles like a lizard coming down a tree.", "Turmoil coming from inside will make you feel threatened by the outside. Try to really look at what's in front of you. You're safe.","Many moons ago you hid a treasure. it's still there, waiting for you."],
+      text: ["Warns of fragility and the need for caution and obstacles to be overcome. But you will move through the obstacles like a lizard coming down a tree.", "Turmoil coming from inside will make you feel threatened by the outside. Try to really look at what's in front of you. You're safe.","Many moons ago you hid a treasure. it's still there, waiting for you."],
       number:["3","4","5"],
       detections: [],
       f: (s) => s == "*" || s == "*º" || s == "º*", // The Delicate heart
     },
     {
       name: "Hidden Balance",
-      text: ["Two subtle signs of cracks, a hidden but fragile balance is achieved at the current moment, whispering secrets of vulnerability and resilience.", "There's much peace to be had in grass. Dance with the shadow and let your mind fly with the cloud."],
+      text: ["Two subtle signs of cracks, a hidden but fragile balance is achieved at the current moment, whispering secrets of vulnerability and resilience.", "There's much peace to be had in grass. Dance with the shadow and let your mind fly with the cloud."],
       number:["6","7"],
       detections: [],
       f: (s) => s.count('*') == 2 && s.count('_') == 0 && s.count('|') == 0, // Hiddem Balance
@@ -65,7 +72,7 @@ const categories = [
     },
     {
       name: "The Multiverse",
-      text: ["A grain is a seed. A grain is a map. You contain inside you guides for the many versions of yourself you could be.","Multiple cracks tightly packed on a single piece of rice, speaks of a crowded and bustling time to come."],
+      text: ["A grain is a seed. A grain is a map. You contain inside you guides for the many versions of yourself you could be.","Multiple cracks tightly packed on a single piece of rice, speaks of a crowded and bustling time to come."],
       number:["19","20"],
       detections: [],
       f: (s) => s.count('_') >= 4 && s.count('|') == 0, // Four cracks
@@ -78,17 +85,10 @@ const categories = [
       f: (s) => s.count('|') == 1, // branches
     },
     {
-      name: "The Teller",
-      text: ["A clear single crack that opens like a telling mouth, unspoken words need to be told and heard. The bigger the opening, the more needs to be shared."],
-      number:["23"],
-      detections: [],
-      f: (s) => s.count('>') >= 1, // The Teller
-    },
-    {
       name: "The Indecisive Heart",
       text: ["Multiple half cracks that don't crack through the whole grain, a decision needs to be made so that the right path shall reveal."],
       number:["21"],
       detections: [],
-      f: (s) => s.count('-') >= 3, // The Indecisive Heart
+      f: (s) => (s.count('-') + s.count('*') >= 3) && s.count('_') == 0, // The Indecisive Heart
     }
   ]
