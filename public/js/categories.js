@@ -9,21 +9,25 @@ const categories = [,
     },
     {
       name: "Branches",
-      text: ["A vertical crack cut across multiple horizontal cracks in the middle of the surface, foretells a journey filled with many paths and possibilities.","Two or multiple lines meets, speaks of unexpected allies and the coming together of forces."],
-      number:["1","2"],
+      text: ["A vertical crack cut across multiple horizontal cracks in the middle of the surface, foretells a journey filled with many paths and possibilities.",
+      "Two or multiple lines meets, speaks of unexpected allies and the coming together of forces.",
+      "One crack separated by multiple lines, speaks of a parting of ways and the need to make a difficult choice."],
+      number:["1","2","3"],
       detections: [],
       f: (s) => s.count('|') == 1 && s.count('+') >= 1, // Branches
     },
     {
       name: "The Delicate Heart",
-      text: ["Warns of fragility and the need for caution and obstacles to be overcome. But you will move through the obstacles like a lizard coming down a tree.", "Turmoil coming from inside will make you feel threatened by the outside. Try to really look at what's in front of you. You're safe.","Many moons ago you hid a treasure. it's still there, waiting for you."],
-      number:["3","4","5"],
+      text: ["Turmoil coming from inside will make you feel threatened by the outside. Try to really look at what's in front of you. You're safe.",
+      "Many moons ago you hid a treasure. It's still there, waiting for you. Handle it with utmost tenderness."],
+      number:["4","5"],
       detections: [],
       f: (s) => s == "*" || s == "*º" || s == "º*", // The Delicate heart
     },
     {
       name: "Hidden Balance",
-      text: ["Two subtle signs of cracks, a hidden but fragile balance is achieved at the current moment, whispering secrets of vulnerability and resilience.", "There's much peace to be had in grass. Dance with the shadow and let your mind fly with the cloud."],
+      text: ["Two subtle signs of cracks, a hidden but fragile balance is achieved at the current moment, whispering secrets of vulnerability and resilience.",
+      "There's much peace to be had in grass. Dance with the shadow and let your mind fly with the cloud."],
       number:["6","7"],
       detections: [],
       f: (s) => s.count('*') == 2 && s.count('_') == 0 && s.count('|') == 0, // Hiddem Balance
@@ -45,34 +49,48 @@ const categories = [,
     {
       name: "The Libra",
       text: ["Two subtle signs of cracks joined by one clear divider crack, unveil a struggle between two realms."],
-      number:["9"],
+      number:["13"],
       detections: [],
-      f: (s) => s.count('*') == 2 && s.count('_') == 1, // libra
+      f: (s) => s.count('*') == 2 && s.count('_') == 1, // Libra
+    },
+    {
+      name: "The Seedling",
+      text: ["One clear sign of crack accompanied by a subtle one, something new begins to unfold. Nurture the seedlings, their growth will surge."],
+      number:["12"],
+      detections: [],
+      f: (s) => s.count('_') == 1 && s.count('*') == 1, // Seedling
     },
     {
       name: "The Divider",
-      text: ["A path reveals before you, the choice to follow it is yours. A testament to the boundless potential that resides within your soul.", "Far away a country was split in two pieces, like a chocolate bar. you may wish it didn't, but often history repeats itself.", "A clear horizontal crack the separate the grain into two halves, an indicator of a clear division that needs to be made."],
-      number:["10","11","12"],
+      text: ["A clear horizontal crack the separate the grain into two halves, an indicator of a clear division that needs to be made.",
+      "A path reveals before you, the choice to follow it is yours. A testament to the boundless potential that resides within your soul.",
+      "Far away a country was split in two pieces, like a chocolate bar. you may wish it didn't, but often history repeats itself."],
+      number:["9","10","11"],
       detections: [],
-      f: (s) => s.count('_') == 1 && s.count('|') == 0, // divider
+      f: (s) => s.count('_') == 1 && s.count('|') == 0, // Divider
     },
     {
       name: "The Mirror",
-      text: ["Two cracks interact with each other. Everything that you touch touches you back. Let life leave marks on you.", "Two cracks are distributed on the surface of the rice grain. Every person you meet has a unique story and perspective. Listen to them with an open heart and you may learn something new.", "Even inanimate objects change and grow. watch a rock with your fingers until you understand its dance."],
-      number:["13","14","15"],
+      text: ["Two parallel cracks are formed on the surface of the rice grain. Close your eyes, take your time for a moment of reflection.",
+      "Even inanimate objects change and grow. Watch a rock with your fingers until you understand its dance."
+      "Two cracks are distributed on the surface of the rice grain. Every person you meet has a unique story and perspective. Listen to them with an open heart and you may learn something new.",
+      ],
+      number:["14","15","16"],
       detections: [],
-      f: (s) => s.count('_') == 2 && s.count('|') == 0, // the mirror
+      f: (s) => s.count('_') == 2 && s.count('|') == 0, // The mirror
     },
     {
       name: "The Unexpected Three",
-      text: ["If you enter a house that's divided into rooms, don't ask where the jungle is.", "Where there's food for two, there's food for three. Guests must not be turned away.","Every person you meet has a unique story and perspective. Listen to them with an open heart and you may learn something new."],
-      number:["16","17","18"],
+      text: ["Where there's food for two, there's food for three. Guests must not be turned away.",
+      "Every person you meet has a unique story and perspective. Listen to them with an open heart and you may learn something new."],
+      number:["17","18"],
       detections: [],
       f: (s) => s.count('_') == 3 && s.count('|') == 0, // The Three Parallels
     },
     {
       name: "The Multiverse",
-      text: ["A grain is a seed. A grain is a map. You contain inside you guides for the many versions of yourself you could be.","Multiple cracks tightly packed on a single piece of rice, speaks of a crowded and bustling time to come."],
+      text: ["A grain is a seed. A grain is a map. You contain inside you guides for the many versions of yourself you could be.",
+      "Multiple cracks tightly packed on a single piece of rice, speaks of a crowded and bustling time to come."],
       number:["19","20"],
       detections: [],
       f: (s) => s.count('_') >= 4 && s.count('|') == 0, // Four cracks
@@ -82,7 +100,7 @@ const categories = [,
       text: ["A long vertical crack winding its way on the edge, speaks of hidden truths and secrets waiting to be revealed."],
       number:["22"],
       detections: [],
-      f: (s) => s.count('|') == 1, // branches
+      f: (s) => s.count('|') == 1, // Branches
     },
     {
       name: "The Indecisive Heart",
