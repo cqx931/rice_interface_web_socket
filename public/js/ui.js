@@ -29,7 +29,7 @@ if (settings.fastMode) {
   settings.message_display_time = 2 * 1000;
 }
 
-settings.ratio = settings.stream_width / settings.python_width;
+settings.ratio = settings.display_width / settings.python_width;
 
 var messageTimeout
 
@@ -434,7 +434,7 @@ $(document).ready(function () {
   });
   resize();
 
-  initSvgCanvas(settings.stream_width, settings.stream_width);
+  initSvgCanvas(settings.display_width, settings.display_width);
   // demo();
 
 });
