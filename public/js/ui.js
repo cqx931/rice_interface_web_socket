@@ -19,7 +19,7 @@ const settings = {
 
 var has_prediction = false
 var last_stored_data = false
-
+var is_typing = false
 var has_displayed_layered = false
 
 if (settings.fastMode) {
@@ -74,6 +74,7 @@ const mode = function (m) {
 
 const clear = function () {
   dbug && console.log("clear")
+  is_typing = false;
   clearMessage()
   clearLayer()
 }
@@ -103,6 +104,11 @@ const demo = function () {
 }
 
 const showPrediction = function (symbols, text) {
+  if(is_typing) {
+    console.log("ignore new prediction")
+    return; // ignore if the previous one is not finished
+  }
+
   has_prediction = true
 
   if (last_stored_data) {
@@ -111,7 +117,6 @@ const showPrediction = function (symbols, text) {
 
   var category = findCategory(symbols)
   dbug && console.log("category", category)
-
   messageTimeout = setTimeout(() => {
     var index = Math.floor(Math.random()*category.text.length);
     renderMessage(category.name + ": "+ symbols, category.text[index], category.number[index]);
@@ -414,6 +419,9 @@ const reveal = function (path, callback) {
 
 const renderMessage = function (title, text, index) {
   mode("predict")
+  dbug && console.log("clear before render")
+  clearMessage();
+
   dbug && console.log("renderMessage")
   $('#category').text(index + ". " + title);
   //  Instead of fading out, it shall change opacity to 0.4
@@ -422,7 +430,11 @@ const renderMessage = function (title, text, index) {
 
     $('#message').show();
     //console.log("typewriter", typewriter)
-    typewriter.typeString(text).start();
+    typewriter.typeString(text).callFunction(() => {
+      console.log("finished typing")
+      is_typing = false;
+    }).start();
+    is_typing = true;
   });
 }
 
@@ -430,7 +442,8 @@ $(document).ready(function () {
   typewriter = new Typewriter(document.getElementById('message'), {
     loop: false,
     cursor: "|",
-    delay: settings.typing_speed
+    delay: settings.typing_speed,
+    deleteSpeed: 0
   });
   resize();
 

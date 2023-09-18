@@ -47,20 +47,6 @@ const categories = [,
       f: (s) => s.count('_') > 2 && s.count('|') > 2 && s.length > 6, // The Broken Cloud
     },
     {
-      name: "The Libra",
-      text: ["Two subtle signs of cracks joined by one clear divider crack, unveil a struggle between two realms."],
-      number:["13"],
-      detections: [],
-      f: (s) => s.count('*') == 2 && s.count('_') == 1, // Libra
-    },
-    {
-      name: "The Seedling",
-      text: ["One clear sign of crack accompanied by a subtle one, something new begins to unfold. Nurture the seedlings, their growth will surge."],
-      number:["12"],
-      detections: [],
-      f: (s) => s.count('_') == 1 && s.count('*') == 1, // Seedling
-    },
-    {
       name: "The Divider",
       text: ["A clear horizontal crack the separate the grain into two halves, an indicator of a clear division that needs to be made.",
       "A path reveals before you, the choice to follow it is yours. A testament to the boundless potential that resides within your soul.",
@@ -95,6 +81,21 @@ const categories = [,
       detections: [],
       f: (s) => s.count('_') >= 4 && s.count('|') == 0, // Four cracks
     },
+    {
+      name: "The Libra",
+      text: ["Two subtle signs of cracks joined by one clear divider crack, unveil a struggle between two realms."],
+      number:["13"],
+      detections: [],
+      f: (s) => s.count('*') == 2 && s.count('_') == 1, // Libra
+    },
+    {
+      name: "The Seedling",
+      text: ["One clear sign of crack accompanied by a subtle one, something new begins to unfold. Nurture the seedlings, their growth will surge."],
+      number:["12"],
+      detections: [],
+      f: (s) => s.count('_') == 1 && s.count('*') == 1, // Seedling
+    },
+   
     {
       name: "The Serpentine",
       text: ["A long vertical crack winding its way on the edge, speaks of hidden truths and secrets waiting to be revealed."],

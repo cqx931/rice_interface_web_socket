@@ -71,5 +71,5 @@ function findCategory (line) {
       return categories[i]
     }
   }
-  return categories[4] // fallback: mist
+  return categories[0] // fallback: mist
 }
